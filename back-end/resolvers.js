@@ -10,8 +10,12 @@ module.exports = {
   },
   Mutation: {
     login: async (parent, args) => {
-      const { email, password } = args.input;
-      return await login({ email, password });
+      try {
+        const { email, password } = args.input;
+        return await login({ email, password });
+      } catch (error) {
+        throw new Error(error.message);
+      }
     },
     register: async (parent, args) => {
       await register(args.input);

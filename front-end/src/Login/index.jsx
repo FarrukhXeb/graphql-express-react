@@ -18,10 +18,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("SUbmitting");
-    loginUser({ email, password })
+    loginUser({ variables: { input: { email, password } } })
       .then((data) => console.log(data))
-      .catch((err) => console.log(err.message));
+      .catch((err) => console.log(err));
   };
   return (
     <div>

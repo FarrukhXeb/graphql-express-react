@@ -1,11 +1,16 @@
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+} from "@apollo/client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
 
 const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
+  link: new HttpLink({ uri: "http://localhost:5000/graphql" }),
   cache: new InMemoryCache(),
 });
 
