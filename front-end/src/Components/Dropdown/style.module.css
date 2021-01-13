@@ -1,0 +1,19 @@
+.wrapper {
+    margin-bottom: 0.6em;
+}
+
+.wrapper select {
+    width: 100%;
+    border-radius: 0.2em;
+    padding: 0.5em 0.4em;
+    border: 0.1em solid #afadad;
+    outline: none;
+}
+
+.success {
+    color: green
+}
+
+.error {
+    color: red
+}

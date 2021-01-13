@@ -1,9 +1,52 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  outline: none;
 }
-html{
+
+html {
   font-size: 16px;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1124px;
+  margin: 0 auto;
+  padding: 0 1.5em;
+}
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-wrapper .form {
+  width: 33em;
+}
+
+.auth-wrapper .form a {
+  text-decoration: none;
+  font-size: 0.7rem;
+  display: block;
+  margin-bottom: 0.6em;
+  color: #0fd158;
+  font-weight: bold;
+}
+
+.auth-wrapper .form a:active {
+  color: #17f56c;
+}
+
+@media only screen and (max-width:420px) {
+  .auth-wrapper {
+    min-height: auto;
+    padding: 1em;
+  }
 }

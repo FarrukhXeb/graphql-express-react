@@ -1,5 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Button from "../../Components/Button";
+import Input from "../../Components/Input";
 
 const LOGIN_USER = gql`
   mutation LoginUser($input: UserInput!) {
@@ -23,21 +26,22 @@ export default function Login() {
       .catch((err) => console.log(err));
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
+    <div className={"auth-wrapper"}>
+      <form className={"form"}>
+        <Input
+          placeholder="Email Address"
           onChange={(e) => setEmail(e.target.value)}
           type="text"
           name="email"
         />
-        <br />
-        <input
+        <Input
+          placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           name="password"
         />
-        <br />
-        <input type="submit" value="login" />
+        <Link to={"/register"}>Not registered yet? Click here</Link>
+        <Button onClick={handleSubmit}>Login</Button>
       </form>
     </div>
   );

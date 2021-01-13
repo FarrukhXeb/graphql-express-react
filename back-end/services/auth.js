@@ -16,7 +16,6 @@ exports.register = async (data) => {
 exports.login = async (data) => {
   const { email, password } = data;
   const user = await User.findOne({ where: { email, password } });
-  console.log(user);
   if (!user) throw new Error("Invalid credentials");
   const payload = { id: user.id };
   const token = jwt.sign(payload, "testkey");
