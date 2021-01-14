@@ -1,11 +1,11 @@
-const Country = require("../models/country");
-const User = require("../models/user");
+// const Country = require("../database/models/country");
 
-exports.getUserById = async (id) => {
-  const user = await User.findByPk(id, { include: [Country] });
+exports.getUserById = async (User) => {
+  const user = await User.findByPk(id, { include: "Country" });
   if (!user) throw new Error("User not found");
   return user;
 };
-exports.getAllUsers = async () => await User.findAll({ include: Country });
-exports.getUserByEmail = async (email) =>
+exports.getAllUsers = async (User) =>
+  await User.findAll({ include: "country" });
+exports.getUserByEmail = async (User) =>
   await User.findOne({ where: { email } });

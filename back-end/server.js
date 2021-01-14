@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 const { makeExecutableSchema } = require("graphql-tools");
-const syncModels = require("./models");
+const models = require("./database/models");
 const typeDefs = require("./typeDef");
 const resolvers = require("./resolvers");
 
@@ -21,11 +21,10 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema,
+    context: { models },
     graphiql: true,
   })
 );
-syncModels().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Listening on PORT ${PORT}`);
-  });
+app.listen(PORT, () => {
+  console.log(`Listening on PORT ${PORT}`);
 });

@@ -1,4 +1,4 @@
-const Country = require("../models/country");
+const Country = require("../database/models/country");
 
 exports.createCountry = async (data) => {
   return await Country.create(data);
