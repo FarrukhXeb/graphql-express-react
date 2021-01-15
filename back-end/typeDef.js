@@ -11,6 +11,7 @@ type Country{
     id:ID!
     name:String!
     abbreviation:String!
+    users:[User]!
 }
 input UserInput{
     firstName:String

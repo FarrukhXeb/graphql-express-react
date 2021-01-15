@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Country.hasOne(models.User);
+      Country.hasMany(models.User, {
+        foreignKey: "country_id",
+        as: "users",
+      });
     }
   }
   Country.init(
