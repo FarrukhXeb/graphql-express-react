@@ -7,3 +7,73 @@ This repo contains the initial setup to kick start a React Application with Grap
 2. Move into the ```back-end``` and run ```yarn install``` or ```npm install```
 3. Same for the ```front-end``` directory
 4. Kick start the server and front end. You know what to do
+
+## GrapqhQL Playground template
+```sh
+mutation LOGIN_USER {
+  login(input: {email: "user@example.com", password: "test"}) {
+    user {
+      email
+      id
+      country {
+        name
+        abbreviation
+      }
+    }
+  }
+}
+
+mutation REGISTER_USER {
+  register(input: {email: "user@example.com", password: "test", firstName: "John", lastName: "Snow", countryId: 1}) {
+    token
+    user {
+      id
+      firstName
+      lastName
+      country {
+        name
+      }
+    }
+  }
+}
+
+mutation CREATE_COUNTRY {
+  createCountry(name: "Pakistan", abbreviation: "pk") {
+    name
+    abbreviation
+  }
+}
+
+query GET_ALL_USERS {
+  users {
+    id
+    email
+    country {
+      id
+      name
+    }
+  }
+}
+
+query GET_ALL_COUNTRIES {
+  countries {
+    id
+    name
+    users {
+      id
+      email
+    }
+  }
+}
+
+query GET_USER {
+  user(id: 4) {
+    email
+    firstName
+    lastName
+    country {
+      name
+    }
+  }
+}
+```
