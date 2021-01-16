@@ -88,14 +88,21 @@ export default function Register() {
           defaultValue={""}
           onChange={(e) => setCountryId(e.target.value)}
         >
-          <option value="" disabled>
-            Select your country
-          </option>
-          {countries.map((country) => (
-            <option key={country.id} value={country.id}>
-              {country.name}
+          {countries && countries.length === 0 ? (
+            <option value={""} disabled>
+              Please Add Countries from Graphql Playground
             </option>
-          ))}
+          ) : (
+            <option value="" disabled>
+              Select your country
+            </option>
+          )}
+          {countries &&
+            countries.map((country) => (
+              <option key={country.id} value={country.id}>
+                {country.name}
+              </option>
+            ))}
         </Dropdown>
         <Link to={"/login"}>Already registered? Click here</Link>
         <Button onClick={handleSubmit}>Register</Button>

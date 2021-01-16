@@ -8,6 +8,12 @@ This repo contains the initial setup to kick start a React Application with Grap
 3. Same for the ```front-end``` directory
 4. Kick start the server and front end. You know what to do
 
+## Postgres Config
+1. In the **.env** file change the value of ```PG_DATABASE``` to your desired database.
+2. Run ```yarn db:create``` which will create a database in your database server.
+3. Run ```yarn db:migrate```.
+4. That's it for now play around with it if you want to :P.
+
 ## GrapqhQL Playground template
 ```sh
 mutation LOGIN_USER {
