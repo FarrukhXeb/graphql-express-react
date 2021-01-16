@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 const { makeExecutableSchema } = require("graphql-tools");
-const models = require("./database/models");
 const typeDefs = require("./typeDef");
 const resolvers = require("./resolvers");
 
@@ -20,7 +19,6 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema,
-    context: { models },
     graphiql: true,
   })
 );

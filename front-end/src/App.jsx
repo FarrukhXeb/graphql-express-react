@@ -5,25 +5,33 @@ import useApollo from "./lib/apolloClient";
 import AppRoute from "./Shared/AppRoute";
 import AuthLayout from "./Shared/AuthLayout";
 import MainLayout from "./Shared/MainLayout";
-import Home from "./Views/Home";
-import Login from "./Views/Login";
-import Register from "./Views/Register";
+import { lazy, Suspense } from "react";
+import FullscreenLoader from "./Shared/FullscreenLoader";
+import AuthProvider from "./Context/AuthContext";
+
+const Home = lazy(() => import("./Views/Home"));
+const Login = lazy(() => import("./Views/Login"));
+const Register = lazy(() => import("./Views/Register"));
 
 function App() {
   const client = useApollo();
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Switch>
-          <AppRoute exact path={"/"} layout={MainLayout} component={Home} />
-          <AppRoute path={"/login"} layout={AuthLayout} component={Login} />
-          <AppRoute
-            path={"/register"}
-            layout={AuthLayout}
-            component={Register}
-          />
-        </Switch>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Suspense fallback={<FullscreenLoader />}>
+            <Switch>
+              <AppRoute exact path={"/"} layout={MainLayout} component={Home} />
+              <AppRoute path={"/login"} layout={AuthLayout} component={Login} />
+              <AppRoute
+                path={"/register"}
+                layout={AuthLayout}
+                component={Register}
+              />
+            </Switch>
+          </Suspense>
+        </Router>
+      </AuthProvider>
     </ApolloProvider>
   );
 }

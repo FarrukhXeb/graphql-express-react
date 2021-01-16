@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../Components/Button";
@@ -16,16 +16,31 @@ const GET_ALL_COUNTRIES = gql`
   }
 `;
 
+const REGISTER_USER = gql`
+  mutation REGISTER_USER($input: UserInput!) {
+    register(input: $input) {
+      token
+      user {
+        id
+      }
+    }
+  }
+`;
+
 export default function Register() {
   const { data, loading } = useQuery(GET_ALL_COUNTRIES);
+  const [execRegister] = useMutation(REGISTER_USER);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstname] = useState("");
   const [lastName, setLastname] = useState("");
+  const [countryId, setCountryId] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { email, password, firstName, lastName };
-    console.log(data);
+    const data = { email, password, firstName, lastName, countryId };
+    execRegister({ variables: { input: data } })
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err.message));
   };
   if (loading) return <FullscreenLoader />;
   const { countries } = data;
@@ -56,7 +71,10 @@ export default function Register() {
           type="password"
           name="password"
         />
-        <Dropdown defaultValue={""}>
+        <Dropdown
+          defaultValue={""}
+          onChange={(e) => setCountryId(e.target.value)}
+        >
           <option value="" disabled>
             Select your country
           </option>

@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { authContext } from "../../Context/AuthContext";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 
@@ -16,15 +17,17 @@ const LOGIN_USER = gql`
 `;
 
 export default function Login() {
+  const { auth, setAuth } = useContext(authContext);
   const [loginUser] = useMutation(LOGIN_USER);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     loginUser({ variables: { input: { email, password } } })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+      .then((data) => setAuth(data.data))
+      .catch((err) => console.log(err.message));
   };
+  if (auth) return <Redirect to={"/"} />;
   return (
     <div className={"auth-wrapper"}>
       <form className={"form"}>

@@ -1,15 +1,13 @@
-// const Country = require("../database/models/country");
+const { Country, User } = require("../database/models");
 
-exports.getUserById = async (models) => {
-  const { User, Country } = models;
+exports.getUserById = async (id) => {
   const user = await User.findByPk(id, {
-    include: [{ model: Country, as: "country" }],
+    include: [{ model: Country, as: "country", foreignKey: "countryId" }],
   });
   if (!user) throw new Error("User not found");
   return user;
 };
-exports.getAllUsers = async (models) => {
-  const { User, Country } = models;
+exports.getAllUsers = async () => {
   return await User.findAll({
     include: [
       {
@@ -19,7 +17,6 @@ exports.getAllUsers = async (models) => {
     ],
   });
 };
-exports.getUserByEmail = async (email, models) => {
-  const { User, Country } = models;
+exports.getUserByEmail = async (email) => {
   return await User.findOne({ where: { email } });
 };

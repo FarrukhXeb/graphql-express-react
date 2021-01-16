@@ -20,7 +20,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
-      country_id: {
+      countryId: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
