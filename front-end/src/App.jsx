@@ -1,13 +1,14 @@
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { lazy, Suspense } from "react";
 import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import useApollo from "./lib/apolloClient";
 import AppRoute from "./Shared/AppRoute";
 import AuthLayout from "./Shared/AuthLayout";
 import MainLayout from "./Shared/MainLayout";
-import { lazy, Suspense } from "react";
 import FullscreenLoader from "./Shared/FullscreenLoader";
 import AuthProvider from "./Context/AuthContext";
+import PrivateRoute from "./Shared/PrivateRoute";
 
 const Home = lazy(() => import("./Views/Home"));
 const Login = lazy(() => import("./Views/Login"));
@@ -21,7 +22,12 @@ function App() {
         <Router>
           <Suspense fallback={<FullscreenLoader />}>
             <Switch>
-              <AppRoute exact path={"/"} layout={MainLayout} component={Home} />
+              <PrivateRoute
+                exact
+                path={"/"}
+                layout={MainLayout}
+                component={Home}
+              />
               <AppRoute path={"/login"} layout={AuthLayout} component={Login} />
               <AppRoute
                 path={"/register"}

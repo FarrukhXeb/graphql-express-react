@@ -10,24 +10,34 @@ const LOGIN_USER = gql`
     login(input: $input) {
       token
       user {
+        id
         email
+        firstName
+        lastName
+        country {
+          name
+          abbreviation
+        }
       }
     }
   }
 `;
 
 export default function Login() {
-  const { auth, setAuth } = useContext(authContext);
+  const {
+    auth: { isAuthenticated },
+    setAuthData,
+  } = useContext(authContext);
   const [loginUser] = useMutation(LOGIN_USER);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     loginUser({ variables: { input: { email, password } } })
-      .then((data) => setAuth(data.data))
+      .then(({ data }) => setAuthData(data.login))
       .catch((err) => console.log(err.message));
   };
-  if (auth) return <Redirect to={"/"} />;
+  if (isAuthenticated) return <Redirect to={"/"} />;
   return (
     <div className={"auth-wrapper"}>
       <form className={"form"}>

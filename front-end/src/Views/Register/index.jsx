@@ -1,9 +1,10 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import Button from "../../Components/Button";
 import Dropdown from "../../Components/Dropdown";
 import Input from "../../Components/Input";
+import { authContext } from "../../Context/AuthContext";
 import FullscreenLoader from "../../Shared/FullscreenLoader";
 
 const GET_ALL_COUNTRIES = gql`
@@ -21,13 +22,24 @@ const REGISTER_USER = gql`
     register(input: $input) {
       token
       user {
+        email
         id
+        firstName
+        lastName
+        country {
+          name
+          abbreviation
+        }
       }
     }
   }
 `;
 
 export default function Register() {
+  const {
+    auth: { isAuthenticated },
+    setAuthData,
+  } = useContext(authContext);
   const { data, loading } = useQuery(GET_ALL_COUNTRIES);
   const [execRegister] = useMutation(REGISTER_USER);
   const [email, setEmail] = useState("");
@@ -39,11 +51,12 @@ export default function Register() {
     e.preventDefault();
     const data = { email, password, firstName, lastName, countryId };
     execRegister({ variables: { input: data } })
-      .then((data) => console.log(data))
+      .then(({ data }) => setAuthData(data.register))
       .catch((err) => console.log(err.message));
   };
   if (loading) return <FullscreenLoader />;
   const { countries } = data;
+  if (isAuthenticated) return <Redirect to={"/"} />;
   return (
     <div className={"auth-wrapper"}>
       <form className={"form"}>
