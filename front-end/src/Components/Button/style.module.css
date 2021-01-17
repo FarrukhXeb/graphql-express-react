@@ -3,12 +3,17 @@
     background-color: #0fd158;
     border: none;
     color: #fff;
-    /* border-radius: 2em; */
     text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
-    /* width: 100%; */
+    font-size: 0.7rem;
 }
+
+/* @media only screen and (max-width:426px) {
+    .button {
+        font-size: 0.6rem;
+    }
+} */
 
 .button:hover {
     transition: 0.3s ease-in all;

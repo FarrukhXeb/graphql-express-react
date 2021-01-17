@@ -19,6 +19,10 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema,
+    customFormatErrorFn: (err) => {
+      console.log(err.message);
+      return err.message;
+    },
     graphiql: true,
   })
 );

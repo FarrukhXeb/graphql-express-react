@@ -10,6 +10,12 @@
     outline: none;
 }
 
+@media only screen and (max-width:426px) {
+    .wrapper select {
+        font-size: 0.6rem;
+    }
+}
+
 .success {
     color: green
 }

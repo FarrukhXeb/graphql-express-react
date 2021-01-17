@@ -28,14 +28,14 @@ export default function Login() {
     auth: { isAuthenticated },
     setAuthData,
   } = useContext(authContext);
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUser, { error }] = useMutation(LOGIN_USER);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     loginUser({ variables: { input: { email, password } } })
       .then(({ data }) => setAuthData(data.login))
-      .catch((err) => console.log(err.message));
+      .catch(() => console.log(error));
   };
   if (isAuthenticated) return <Redirect to={"/"} />;
   return (
