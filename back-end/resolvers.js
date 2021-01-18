@@ -1,5 +1,11 @@
 const { register, login } = require("./services/auth");
+const { createCategory } = require("./services/category");
 const { createCountry, getAllCountries } = require("./services/country");
+const {
+  getProductsByCategory,
+  getProducts,
+  createProduct,
+} = require("./services/product");
 const { getAllUsers, getUserById } = require("./services/user");
 
 module.exports = {
@@ -7,6 +13,8 @@ module.exports = {
     user: async (parent, { id }) => await getUserById(id),
     countries: async (parent, args) => await getAllCountries(),
     users: async (parent, args) => await getAllUsers(),
+    products: async (parent, args) => await getProducts(),
+    categories: async (parent, args) => await getProductsByCategory(),
   },
   Mutation: {
     login: async (parent, args) => {
@@ -24,6 +32,20 @@ module.exports = {
     createCountry: async (parent, args) => {
       const country = await createCountry(args);
       return country;
+    },
+    createCategory: async (parent, args) => {
+      try {
+        return await createCategory(args.name);
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+    createProduct: async (parent, args) => {
+      try {
+        return await createProduct(args.input);
+      } catch (error) {
+        throw new Error(error.message);
+      }
     },
   },
 };
