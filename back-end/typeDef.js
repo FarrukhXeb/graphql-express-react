@@ -48,7 +48,7 @@ type Query {
     countries :[Country]!
     category(name:String):Category!
     categories:[Category]!
-    product(id:Float):Product!
+    product(id:ID!):Product!
     products:[Product]!
 }
 type Mutation {

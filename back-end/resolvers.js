@@ -5,6 +5,7 @@ const {
   getProductsByCategory,
   getProducts,
   createProduct,
+  getProductById,
 } = require("./services/product");
 const { getAllUsers, getUserById } = require("./services/user");
 
@@ -14,6 +15,7 @@ module.exports = {
     countries: async (parent, args) => await getAllCountries(),
     users: async (parent, args) => await getAllUsers(),
     products: async (parent, args) => await getProducts(),
+    product: async (parent, args) => await getProductById(args.id),
     categories: async (parent, args) => await getProductsByCategory(),
   },
   Mutation: {

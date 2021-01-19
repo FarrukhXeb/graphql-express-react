@@ -44,10 +44,8 @@ exports.getProductById = async (id) => {
       {
         model: Category,
         as: "categories",
-        foreignKey: "categoryId",
-        through: {
-          attributes: [],
-        },
+        foreignKey: "category_id",
+        through: "CategoriesProducts",
       },
     ],
   });

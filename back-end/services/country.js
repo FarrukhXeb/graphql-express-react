@@ -4,6 +4,6 @@ exports.createCountry = async (data) => {
 };
 exports.getAllCountries = async () => {
   return await Country.findAll({
-    include: [{ model: User, as: "users", foreignKey: "countryId" }],
+    include: [{ model: User, as: "users", foreignKey: "country_id" }],
   });
 };
