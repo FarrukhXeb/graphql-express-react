@@ -30,13 +30,13 @@ input UserInput{
     lastName:String
     email:String!
     password:String!
-    countryId: ID
+    country_id: ID
 }
 input ProductInput{
     name:String!
     price:Float!
     description:String!
-    categoryId:ID!
+    category_ids:[ID]!
 }
 type AuthToken{
     token:String!

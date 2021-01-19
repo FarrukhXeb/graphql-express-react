@@ -1,16 +1,28 @@
-const { Product, Category, CategoryProduct } = require("../database/models");
+const { Product, Category } = require("../database/models");
 
 exports.createProduct = async (data) => {
-  return await Product.create(data, {
+  const { name, price, description, category_ids } = data;
+  const categories = await Category.findAll({ where: { id: category_ids } });
+  if (!categories && categories.length === 0)
+    throw new Error("Categories does not exists");
+  const product = await Product.create({
+    name,
+    price,
+    description,
+  });
+  await product.addCategory(categories);
+  const result = await Product.findOne({
+    where: { name: product.name },
     include: [
       {
         model: Category,
         as: "categories",
-        foreignKey: "categoryId",
-        through: CategoryProduct,
+        foreignKey: "category_id",
+        through: "CategoriesProducts",
       },
     ],
   });
+  return result;
 };
 
 exports.getProducts = async () => {
@@ -19,10 +31,8 @@ exports.getProducts = async () => {
       {
         model: Category,
         as: "categories",
-        foreignKey: "categoryId",
-        through: {
-          attributes: [],
-        },
+        foreignKey: "category_id",
+        through: "CategoriesProducts",
       },
     ],
   });
@@ -43,15 +53,14 @@ exports.getProductById = async (id) => {
   });
 };
 
-exports.getProductsByCategory = async (categoryName) => {
+exports.getProductsByCategory = async () => {
   return await Category.findAll({
-    where: { name: categoryName },
     include: [
       {
         model: Product,
         as: "products",
-        foreignKey: "productId",
-        through: { attributes: [] },
+        foreignKey: "product_id",
+        through: "CategoriesProducts",
       },
     ],
   });

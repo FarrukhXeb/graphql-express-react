@@ -5,10 +5,10 @@ exports.register = async (data) => {
   try {
     if (await getUserByEmail(data.email))
       throw new Error("User already exists with this email");
-    const country = await Country.findByPk(data.countryId);
+    const country = await Country.findByPk(data.country_id);
     if (!country) throw new Error("Country not found");
     return await User.create(data, {
-      include: [{ model: Country, as: "country", foreignKey: "countryId" }],
+      include: [{ model: Country, as: "country", foreignKey: "country_id" }],
     });
   } catch (error) {
     throw new Error(error.message);
@@ -18,7 +18,7 @@ exports.login = async (data) => {
   const { email, password } = data;
   const user = await User.findOne({
     where: { email, password },
-    include: [{ model: Country, as: "country", foreignKey: "countryId" }],
+    include: [{ model: Country, as: "country", foreignKey: "country_id" }],
   });
   if (!user) throw new Error("Invalid credentials");
   const payload = { id: user.id };

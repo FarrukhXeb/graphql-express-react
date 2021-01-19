@@ -2,10 +2,10 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn("Users", "countryId", {
-      type: Sequelize.UUID,
+    await queryInterface.addColumn("Users", "country_id", {
+      type: Sequelize.INTEGER,
       references: {
-        model: "Country", // name of Target model
+        model: "Countries", // name of Target model
         key: "id", // key in Target model that we're referencing
       },
       onUpdate: "CASCADE",
@@ -16,8 +16,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeColumn(
       "Users", // name of the Target model
-      "countryId" // key we want to remove
+      "country_id" // key we want to remove
     );
-    await queryInterface.dropTable("CategoryProducts");
   },
 };

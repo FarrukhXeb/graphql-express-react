@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon -r dotenv/config server.js",
     "db:create": "sequelize-cli db:create",
-    "db:migrate": "sequelize-cli db:migrate"
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:drop": "sequelize-cli db:drop"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
