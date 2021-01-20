@@ -1,12 +1,26 @@
 import React from "react";
-import style from "./style.module.css";
+import styled from "styled-components";
+
+const StyledDropdown = styled.div`
+  margin-bottom: 0.6em;
+  select {
+    width: 100%;
+    border-radius: 0.2em;
+    padding: 0.5em 0.4em;
+    border: 0.1em solid #afadad;
+    outline: none;
+    @media only screen and (max-width: 426px) {
+      font-size: 0.6rem;
+    }
+  }
+`;
 
 export default function Dropdown({ placeholder, children, ...rest }) {
   return (
-    <div className={style.wrapper}>
+    <StyledDropdown>
       <select placeholder={placeholder} {...rest}>
         {children}
       </select>
-    </div>
+    </StyledDropdown>
   );
 }

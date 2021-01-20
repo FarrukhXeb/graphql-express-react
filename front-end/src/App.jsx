@@ -2,6 +2,8 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { lazy, Suspense } from "react";
 import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import theme from "./Theme";
 import useApollo from "./lib/apolloClient";
 import AppRoute from "./Shared/AppRoute";
 import AuthLayout from "./Shared/AuthLayout";
@@ -17,28 +19,34 @@ const Register = lazy(() => import("./Views/Register"));
 function App() {
   const client = useApollo();
   return (
-    <ApolloProvider client={client}>
-      <AuthProvider>
-        <Router>
-          <Suspense fallback={<FullscreenLoader />}>
-            <Switch>
-              <PrivateRoute
-                exact
-                path={"/"}
-                layout={MainLayout}
-                component={Home}
-              />
-              <AppRoute path={"/login"} layout={AuthLayout} component={Login} />
-              <AppRoute
-                path={"/register"}
-                layout={AuthLayout}
-                component={Register}
-              />
-            </Switch>
-          </Suspense>
-        </Router>
-      </AuthProvider>
-    </ApolloProvider>
+    <ThemeProvider theme={theme}>
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <Router>
+            <Suspense fallback={<FullscreenLoader />}>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path={"/"}
+                  layout={MainLayout}
+                  component={Home}
+                />
+                <AppRoute
+                  path={"/login"}
+                  layout={AuthLayout}
+                  component={Login}
+                />
+                <AppRoute
+                  path={"/register"}
+                  layout={AuthLayout}
+                  component={Register}
+                />
+              </Switch>
+            </Suspense>
+          </Router>
+        </AuthProvider>
+      </ApolloProvider>
+    </ThemeProvider>
   );
 }
 

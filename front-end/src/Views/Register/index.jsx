@@ -49,7 +49,7 @@ export default function Register() {
   const [countryId, setCountryId] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { email, password, firstName, lastName, countryId };
+    const data = { email, password, firstName, lastName, country_id:countryId };
     execRegister({ variables: { input: data } })
       .then(({ data }) => setAuthData(data.register))
       .catch((err) => console.log(err.message));

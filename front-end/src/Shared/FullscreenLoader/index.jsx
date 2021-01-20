@@ -1,10 +1,19 @@
 import React from "react";
 import Loader from "react-loader-spinner";
-import style from "./style.module.css";
+import styled, { useTheme } from "styled-components";
+
+const Wrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default function FullscreenLoader() {
+  const theme = useTheme();
   return (
-    <div className={style.wrapper}>
-      <Loader type="Puff" color="#0fd158" height={100} width={100} />
-    </div>
+    <Wrapper>
+      <Loader type="Puff" color={theme.primary} height={100} width={100} />
+    </Wrapper>
   );
 }
